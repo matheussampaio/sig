@@ -2,7 +2,7 @@
 
 ### Descrição ###
 
-Baixe os dados espaciais do [site] [1] com informações sobre limites do estado, municípios, rodovias, postos pluviométricos, açudes e ferrovias do estado da Paraíba. Os arquivos estão em shapefile, então carregue-os no Postgresql + Postgis.
+Baixe os dados espaciais do [site] [1] com informações sobre limites do estado, municípios, rodovias, postos pluviométricos, açudes e ferrovias do estado da Paraíba. Os arquivos estão em shapefile, então carregue-os no [Postgresql + Postgis] [2].
 
 
 ### Professor: ###
@@ -37,3 +37,4 @@ Baixe os dados espaciais do [site] [1] com informações sobre limites do estado
 18. Quais municípios interceptam o açude Epitácio Pessoa?
 
 [1]: http://www.aesa.pb.gov.br/geoprocessamento/geoportal/shapes.html
+[2]: http://www.postgresql.org.br/
