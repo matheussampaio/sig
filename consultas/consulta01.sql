@@ -1,3 +1,3 @@
-﻿SELECT a.nome AS Nome, ST_Area(a.geom) AS Comprimento
-FROM sig.acudagem_principal a
-ORDER BY Comprimento DESC
+﻿SELECT acudes.nome AS nome, ST_Area(acudes.geom) AS comprimento
+FROM sig.acudagem_principal acudes
+ORDER BY comprimento DESC LIMIT 1
