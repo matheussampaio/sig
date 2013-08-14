@@ -1,5 +1,3 @@
-﻿SELECT acudes.nome AS Nome, acudes.a_espelho AS Tamanho
-FROM sig.acudagem_principal acudes
-ORDER BY acudes.a_espelho DESC LIMIT 1
-
-
+﻿SELECT a.nome AS Nome, ST_Area(a.geom) AS Comprimento
+FROM sig.acudagem_principal a
+ORDER BY Comprimento DESC
