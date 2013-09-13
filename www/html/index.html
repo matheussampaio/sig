@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="EN">
+    <head>
+    <style>
+        html,body {
+            height: 99%;
+            width: 99%;
+        }
+        #map_id {
+            width: 100%;
+            height: 100%;
+            border: 1px solid black;
+        }   
+    </style>
+    <script src='http://openlayers.org/api/OpenLayers.js'></script>
+    <script type="text/javascript">
+            var map, osm;
+
+            function init() {
+
+                var layer_municipios = new OpenLayers.Layer.WMS(
+                                "Municipios", "http://localhost:8080/geoserver/SIG/wms",
+                                {layers: 'SIG:municipios', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false}
+                            );
+
+                var layer_acudagem = new OpenLayers.Layer.WMS(
+                                "Acudagem", "http://localhost:8080/geoserver/SIG/wms",
+                                {layers: 'SIG:acudagem_principal', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false}
+                            );
+
+                var layer_limite_estadual = new OpenLayers.Layer.WMS(
+                                "Limite Estadual", "http://localhost:8080/geoserver/SIG/wms",
+                                {layers: 'SIG:limite_estadual', transparent: "true"},
+                                {singleTile: false, isBaseLayer: true}
+                            );
+                
+                var layer_postos = new OpenLayers.Layer.WMS(
+                                "Postos", "http://localhost:8080/geoserver/SIG/wms",
+                                {layers: 'SIG:postos', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false}
+                            );
+
+                var layer_rodovias = new OpenLayers.Layer.WMS(
+                                "Rodovias", "http://localhost:8080/geoserver/SIG/wms",
+                                {layers: 'SIG:rodovias', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false}
+                            );
+
+                var layer_estrada_ferro = new OpenLayers.Layer.WMS(
+                                "Estrada de Ferro", "http://localhost:8080/geoserver/SIG/wms",
+                                {layers: 'SIG:estrada_ferro', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false}
+                            );
+
+                var options = {
+                    center: new OpenLayers.LonLat(-3996296.2385206,-807660.81172368),
+                    layers: [layer_municipios, layer_acudagem, layer_limite_estadual, layer_postos, layer_estrada_ferro], //layer_rodovias],
+                    zoom: 2,
+                    controls: [new OpenLayers.Control.LayerSwitcher(), new OpenLayers.Control.PanZoomBar({position: new OpenLayers.Pixel(2, 3)}), new OpenLayers.Control.Navigation(), new OpenLayers.Control.ScaleLine()],
+                    maxExtent: new OpenLayers.Bounds(-38.7649917602539, -8.30254077911377, -34.793327331543, -6.02551984786987)
+
+                }
+
+                map = new OpenLayers.Map("map_id", options);
+            }
+    </script>
+    
+    </head>
+    <body>
+        
+
+        <div id="map_id">
+            <script>
+            init();
+            </script>
+        </div>
+    </body>
+</html>
