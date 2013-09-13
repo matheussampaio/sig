@@ -1,11 +1,24 @@
-Projeto SIG
+Projeto de SIG
 ====================
 
-Sistema para visualizar o mapa da Paraíba.
+Sistema para visualizar o mapa da Paraíba além de algumas outras informações.
 
 
-[Create a spatially-enabled database][2]
+Configurando o ambiente
 ===================
+
+
+####Instalar o Postgres+Postgis
+
+*TODO*
+
+
+####Configurar o Postgres
+
+*TODO*
+
+
+####Criando um Banco de Dados Espacial (EN)
 
 The first step in creating a PostGIS database is to create a simple PostgreSQL database.
 
@@ -36,21 +49,31 @@ If you wish to add comments to the PostGIS functions, the final step is to load 
 ```
 psql -d [yourdatabase] -f /usr/share/postgresql/9.1/contrib/postgis_comments.sql 
 ```
+Mais [infos][2].
 
 
-Import Shapefile
-===================
-Execute scripts in script/
+####Importar os shapefiles da Paraíba
+
+Execute os scripts em *script/* através do pgadmin3
 
 
+####Instalar o GeoServer
 
-Geoserver
-===================
-
-- Install Geoserver
-- Add Store ( your database in Postgres)
-- Create workspace (with link http://localhost:8080/geoserver/your_workspace_name)
-- Create and publish your Layers
-
+- Instalar o tomcat7:
+```
+    sudo apt-get install tomcat7
+```
+- Download do GeoServer [aqui](http://sourceforge.net/projects/geoserver/files/GeoServer/2.3.5/geoserver-2.3.5-war.zip)
+- Unzip e copia para */var/lib/tomcat7/webapps/*
 
 
+####Configurar o  GeoServer
+
+- Adicionar o banco de dados no GeoServer
+- Criar um workspace com nome "GO"
+- Criar e publicar os Layers
+
+That's all folks!
+
+[1]: http://download.geofabrik.de/south-america.html
+[2]: http://postgis.refractions.net/documentation/manual-1.5/ch02.html#id418654
