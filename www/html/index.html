@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="EN">
     <head>
@@ -7,76 +7,294 @@
         html,body {
             height: 99%;
             width: 99%;
+            vertical-align: center;
         }
         #map_id {
             width: 100%;
             height: 100%;
             border: 1px solid black;
-        }   
+            text-align: right;
+            vertical-align: right;
+        }
+        #controlToggle li {
+            list-style: none;
+        }
+        #leftcolumn { width: 75%; height:75%; float: left}
+        #rightcolumn { width: 20%; height:75%; float: right}
     </style>
     <script src='http://openlayers.org/api/OpenLayers.js'></script>
+    <script src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjpkAC9ePGem0lIq5XcMiuhR_wWLPFku8Ix9i2SXYRVK3e45q1BQUd_beF8dtzKET_EteAjPdGDwqpQ'></script>
+ 
     <script type="text/javascript">
-            var map, osm;
-
+            var map, osm, layer_rodovias;
+ 
+            var server = "http://localhost:8090/geoserver/projetosig/wms";
+ 
             function init() {
-
+                var gphy = new OpenLayers.Layer.Google(
+                    "Google Physical",
+                    {type: G_PHYSICAL_MAP}
+                );
+                var gmap = new OpenLayers.Layer.Google(
+                    "Google Streets", // the default
+                    {numZoomLevels: 20}
+                );
+                var ghyb = new OpenLayers.Layer.Google(
+                    "Google Hybrid",
+                    {type: G_HYBRID_MAP, numZoomLevels: 20}
+                );
+                var gsat = new OpenLayers.Layer.Google(
+                    "Google Satellite",
+                    {type: G_SATELLITE_MAP, numZoomLevels: 22}
+                );
+ 
                 var layer_municipios = new OpenLayers.Layer.WMS(
-                                "Municipios", "http://localhost:8080/geoserver/SIG/wms",
+                                "Municipios", server,
                                 {layers: 'SIG:municipios', transparent: "true"},
-                                {singleTile: false, isBaseLayer: false}
+                                {singleTile: true, isBaseLayer: false, visibility: false}
                             );
-
+ 
                 var layer_acudagem = new OpenLayers.Layer.WMS(
-                                "Acudagem", "http://localhost:8080/geoserver/SIG/wms",
+                                "Acudagem", server,
                                 {layers: 'SIG:acudagem_principal', transparent: "true"},
-                                {singleTile: false, isBaseLayer: false}
+                                {singleTile: false, isBaseLayer: false, visibility: false}
                             );
-
-                var layer_limite_estadual = new OpenLayers.Layer.WMS(
-                                "Limite Estadual", "http://localhost:8080/geoserver/SIG/wms",
-                                {layers: 'SIG:limite_estadual', transparent: "true"},
-                                {singleTile: false, isBaseLayer: true}
-                            );
-                
+ 
                 var layer_postos = new OpenLayers.Layer.WMS(
-                                "Postos", "http://localhost:8080/geoserver/SIG/wms",
+                                "Postos", server,
                                 {layers: 'SIG:postos', transparent: "true"},
-                                {singleTile: false, isBaseLayer: false}
+                                {singleTile: false, isBaseLayer: false, visibility: false}
                             );
-
-                var layer_rodovias = new OpenLayers.Layer.WMS(
-                                "Rodovias", "http://localhost:8080/geoserver/SIG/wms",
+ 
+                layer_rodovias = new OpenLayers.Layer.WMS(
+                                "Rodovias", server,
                                 {layers: 'SIG:rodovias', transparent: "true"},
-                                {singleTile: false, isBaseLayer: false}
+                                {singleTile: false, isBaseLayer: false, visibility: true}
                             );
-
+ 
                 var layer_estrada_ferro = new OpenLayers.Layer.WMS(
-                                "Estrada de Ferro", "http://localhost:8080/geoserver/SIG/wms",
+                                "Estrada de Ferro", server,
                                 {layers: 'SIG:estrada_ferro', transparent: "true"},
-                                {singleTile: false, isBaseLayer: false}
+                                {singleTile: false, isBaseLayer: false, visibility: false}
+ 
                             );
-
+ 
+                 var layer_nordeste = new OpenLayers.Layer.WMS(
+                                "Nordeste", server,
+                                {layers: 'SIG:nordeste', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false, visibility: true}
+ 
+                            );
+                 
+                var layer_drenagem = new OpenLayers.Layer.WMS(
+                                "Drenagem Principal", server,
+                                {layers: 'SIG:drenagem_principal', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false, visibility: false}
+                            );
+ 
+                var layer_sedes_distritais = new OpenLayers.Layer.WMS(
+                                "Sedes Distritais", server,
+                                {layers: 'SIG:sedes_distritais', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false, visibility: false}
+                            );
+ 
+                var layer_sedes_municipais = new OpenLayers.Layer.WMS(
+                                "Sedes Municipais", server,
+                                {layers: 'SIG:sedes_municipais', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false, visibility: false}
+                            );
+ 
+                var layer_sistemas_aquiferos = new OpenLayers.Layer.WMS(
+                                "Sistemas Aquiferos", server,
+                                {layers: 'SIG:sistemas_aquiferos', transparent: "true"},
+                                {opacity: 0.4, singleTile: false, isBaseLayer: false, visibility: false}
+                            );
+ 
+                var layer_sub_bacias = new OpenLayers.Layer.WMS(
+                                "Sub. Bacias", server,
+                                {layers: 'SIG:sub_bacias', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false, visibility: false}
+                            );
+ 
+                var layer_pluviometria_anual = new OpenLayers.Layer.WMS(
+                                "Pluviometria Anual Media", server,
+                                {layers: 'SIG:pluviometria_anual_media', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false, visibility: false}
+                            );
+               
+                var layer_bacias = new OpenLayers.Layer.WMS(
+                                "Bacias Hidrograficas", server,
+                                {layers: 'SIG:bacias_hidrograficas', transparent: "true"},
+                                {singleTile: false, isBaseLayer: false, visibility: false}
+                            );
+ 
                 var options = {
-                    center: new OpenLayers.LonLat(-3996296.2385206,-807660.81172368),
-                    layers: [layer_municipios, layer_acudagem, layer_limite_estadual, layer_postos, layer_estrada_ferro], //layer_rodovias],
-                    zoom: 2,
-                    controls: [new OpenLayers.Control.LayerSwitcher(), new OpenLayers.Control.PanZoomBar({position: new OpenLayers.Pixel(2, 3)}), new OpenLayers.Control.Navigation(), new OpenLayers.Control.ScaleLine()],
-                    maxExtent: new OpenLayers.Bounds(-38.7649917602539, -8.30254077911377, -34.793327331543, -6.02551984786987)
-
-                }
-
+                    center: new OpenLayers.LonLat(-46296.2385206,807660.81172368),
+                    layers: [layer_municipios, layer_pluviometria_anual, layer_sub_bacias, layer_sistemas_aquiferos, layer_sedes_municipais, layer_sedes_distritais, layer_drenagem, layer_acudagem, layer_postos, layer_estrada_ferro, layer_nordeste, gphy, gmap, ghyb, gsat, layer_rodovias, layer_bacias],
+                    controls: [new OpenLayers.Control.LayerSwitcher(), new OpenLayers.Control.PanZoomBar({position: new OpenLayers.Pixel(2, 3)}), new OpenLayers.Control.Navigation(), new OpenLayers.Control.ScaleLine(), new OpenLayers.Control.MousePosition()]
+                };
+ 
                 map = new OpenLayers.Map("map_id", options);
+ 
+                // style the sketch fancy
+                var sketchSymbolizers = {
+                    "Point": {
+                        pointRadius: 4,
+                        graphicName: "square",
+                        fillColor: "white",
+                        fillOpacity: 1,
+                        strokeWidth: 1,
+                        strokeOpacity: 1,
+                        strokeColor: "#333333"
+                    },
+                    "Line": {
+                        strokeWidth: 3,
+                        strokeOpacity: 1,
+                        strokeColor: "#666666",
+                        strokeDashstyle: "dash"
+                    },
+                    "Polygon": {
+                        strokeWidth: 2,
+                        strokeOpacity: 1,
+                        strokeColor: "#666666",
+                        fillColor: "white",
+                        fillOpacity: 0.3
+                    }
+                };
+                var style = new OpenLayers.Style();
+                style.addRules([
+                    new OpenLayers.Rule({symbolizer: sketchSymbolizers})
+                ]);
+                var styleMap = new OpenLayers.StyleMap({"default": style});
+               
+                // allow testing of specific renderers via "?renderer=Canvas", etc
+                var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
+                renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
+ 
+                measureControls = {
+                    line: new OpenLayers.Control.Measure(
+                        OpenLayers.Handler.Path, {
+                            persist: true,
+                            handlerOptions: {
+                                layerOptions: {
+                                    renderers: renderer,
+                                    styleMap: styleMap
+                                }
+                            }
+                        }
+                    ),
+                    polygon: new OpenLayers.Control.Measure(
+                        OpenLayers.Handler.Polygon, {
+                            persist: true,
+                            handlerOptions: {
+                                layerOptions: {
+                                    renderers: renderer,
+                                    styleMap: styleMap
+                                }
+                            }
+                        }
+                    )
+                };
+               
+                var control;
+                for(var key in measureControls) {
+                    control = measureControls[key];
+                    control.events.on({
+                        "measure": handleMeasurements,
+                        "measurepartial": handleMeasurements
+                    });
+                    control.setImmediate(true);
+                    map.addControl(control);
+                }
+               
+                map.setCenter(new OpenLayers.LonLat(-37,-9), 5);
+               
+                document.getElementById('noneToggle').checked = true;
             }
+ 
+            function handleMeasurements(event) {
+                var geometry = event.geometry;
+                var units = event.units;
+                var order = event.order;
+                var measure = event.measure;
+                var element = document.getElementById('output');
+                var out = "";
+                if(order == 1) {
+                    out += "Distância: " + measure.toFixed(3) + "m";
+                } else {
+                    out += "Área: " + measure.toFixed(3) + "m" + "<sup>2</" + "sup>";
+                }
+                element.innerHTML = out;
+            }
+ 
+            function toggleControl(element) {
+                for(key in measureControls) {
+                    var control = measureControls[key];
+                    if(element.value == key && element.checked) {
+                       control.activate();
+                    } else {
+                        control.deactivate();
+                    }
+                }
+            }
+           
     </script>
-    
+   
     </head>
     <body>
-        
-
-        <div id="map_id">
-            <script>
-            init();
-            </script>
+       
+        <div id="title" align="center"><h1>Projeto SIG</h1></div>
+ 
+       
+        <div id="leftcolumn">
+            <div id="map_id">
+                <script>
+                init();
+                </script>
+            </div>
+ 
+            <div>
+                <div id="output" align="right">
+                </div>
+                <ul id="controlToggle">
+                    <li>
+                        <input type="radio" name="type" value="none" id="noneToggle"
+                              onclick="toggleControl(this);" checked="checked" />
+                        <label for="noneToggle">Navegar</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="type" value="line" id="lineToggle" onclick="toggleControl(this);" />
+                        <label for="lineToggle">Medir distância</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="type" value="polygon" id="polygonToggle" onclick="toggleControl(this);" />
+                        <label for="polygonToggle">Medir área</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+ 
+        <div id="rightcolumn">
+            <p><h3>Legenda:</h5></p>
+ 
+            <ul>
+                <li>Estradas:
+                    <ul>
+                        <li><font color="009933"><b>—</b></font>: BR</li>
+                        <li><font color="228B22"><b>---</b></font>: Leito Natural</li>
+                        <li><font color="FFD700"><b>—</b></font>: PB</li>
+                        <li><font color="0055CC"><b>—</b></font>: PBT</li>
+                    </ul>
+                </li>
+            </ul>
+ 
+            <p><h3>Grupo</h3></p>
+ 
+            <ul>
+                <li>Bruno Miranda</li>
+                <li>Dirceu Medeiros</li>
+                <li>Matheus Sampaio</li>
+            </ul>
         </div>
     </body>
 </html>
