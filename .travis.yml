@@ -22,3 +22,10 @@ before_script:
 script:
   - cd src/tests
   - python -m unittest PontoOnibusTest RotaTest PontoOnibusRotaTest OnibusTest HorariosTest LocalizationTest FugaRotaTest FunctionsTest TriggersTest ViewsTest
+
+notifications:
+  email:
+    recipients:
+      - matheus1401@gmail.com
+    on_success: always
+    on_failure: always

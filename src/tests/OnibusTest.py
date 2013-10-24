@@ -29,20 +29,24 @@ class OnibusTest(unittest.TestCase):
 		def tearDown(self):
 			self.cur.close()
 
-		def testACreateTable(self):
+        def testACreateEnum(self):
+            self.cur.execute("CREATE TYPE status AS ENUM ('normal', 'atrasado', 'adiantado', 'garagem', 'indeterminado');")
+            self.assertEqual(self.cur.statusmessage, "CREATE TYPE")
+
+		def testBCreateTable(self):
 			self.cur.execute(self.Onibus)
 			self.assertEqual(self.cur.statusmessage, "CREATE TABLE")
 		
-		def testBConstraints(self):
+		def testCConstraints(self):
 			self.cur.execute(self.cons)
 			self.assertEqual(self.cur.statusmessage, "ALTER TABLE")
 			
-		def testCInsertTable(self):
+		def testDInsertTable(self):
 			for self.dados in self.inserts:
 				self.cur.execute(self.dados)
 				self.assertEqual(self.cur.statusmessage, "INSERT 0 1")
 		
-		def testDInsertTableFalhos(self):
+		def testEInsertTableFalhos(self):
 			for self.dadosFalhos in self.falhos:
 				try:
 					self.cur.execute(self.dadosFalhos)
@@ -53,9 +57,7 @@ class OnibusTest(unittest.TestCase):
 			# self.cur.execute("DROP TABLE Onibus CASCADE;")
 			# self.assertEqual(self.cur.statusmessage, "DROP TABLE")
 			
-		def testFCreateEnum(self):
-			self.cur.execute("CREATE TYPE status AS ENUM ('normal', 'atrasado', 'adiantado', 'garagem', 'indeterminado');")
-			self.assertEqual(self.cur.statusmessage, "CREATE TYPE")
+		
 		
 		# def testGDropEnum(self):
 			# self.cur.execute("DROP TYPE status;")
