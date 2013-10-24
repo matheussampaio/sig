@@ -5,8 +5,7 @@ python:
 
 before_script:
   - psql -c 'create database teste;' -U postgres
-  - psql -c "create user matheussampaio with unencrypted password 'sampaio';" -U postgres
-  - sudo apt-get install python-xmlrunner
+  - psql -d test -c 'CREATE EXTENSION postgis;' -U postgres
   - pip install psycopg2
 
 script:
