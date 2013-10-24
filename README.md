@@ -1,3 +1,5 @@
+https://travis-ci.org/matheussampaio/sig.png
+
 Projeto de SIG
 ====================
 
