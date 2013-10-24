@@ -43,7 +43,7 @@ class FunctionsTest(unittest.TestCase):
     def tearDown(self):
         self.cur.close()
 
-    def testCreateFunction(self):
+    def testACreateFunction(self):
          self.cur.execute(self.checaOnibus)
          self.assertEqual(self.cur.statusmessage, "CREATE FUNCTION")
 

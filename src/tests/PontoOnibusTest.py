@@ -31,29 +31,29 @@ class PontoOnibusTest(unittest.TestCase):
     def tearDown(self):
         self.cur.close()
 
-    def testBCreateTable(self):
+    def testACreateTable(self):
         self.cur.execute(self.PontoOnibus)
         self.assertEqual(self.cur.statusmessage, "CREATE TABLE")
         self.cur.execute(self.geometria)
         self.assertEqual(self.cur.statusmessage, "SELECT 1")
     
-    def testCConstraints(self):
+    def testBConstraints(self):
         self.cur.execute(self.cons)
         self.assertEqual(self.cur.statusmessage, "ALTER TABLE")
         
-    def testDInsertTable(self):
+    def testCInsertTable(self):
         for self.dados in self.inserts:
             self.cur.execute(self.dados)
             self.assertEqual(self.cur.statusmessage, "INSERT 0 1")
 	
-    def testEInsertTableFalhos(self):
+    def testDInsertTableFalhos(self):
         for self.dadosFalhos in self.falhos:
             try:
                 self.cur.execute(self.dadosFalhos)
             except:
                 self.assertFalse(False)
 
-    def testADropTable(self):
+    def testEDropTable(self):
         self.cur.execute("DROP TABLE PontoOnibus CASCADE;")
         self.assertEqual(self.cur.statusmessage, "DROP TABLE")
 			

@@ -32,7 +32,7 @@ class TriggersTest(unittest.TestCase):
     def tearDown(self):
         self.cur.close()
 
-    def testBCreatTrigger(self):
+    def testACreatTrigger(self):
         self.cur.execute(self.LocalizationRefreshPO)
         self.assertEqual(self.cur.statusmessage, "CREATE TRIGGER")
 
