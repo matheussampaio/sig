@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/matheussampaio/sig.png)](https://travis-ci.org/matheussampaio/sig)
+
 Projeto de SIG
 ====================
 
