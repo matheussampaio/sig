@@ -21,7 +21,7 @@ before_script:
 
 script:
   - cd src/tests
-  - python -m unittest PontoOnibusTest RotaTest PontoOnibusRotaTest OnibusTest HorariosTest LocalizationTest FugaRotaTest FunctionsTest TriggersTest ViewsTest
+  - python -m unittest runTests
 
 notifications:
   email:
