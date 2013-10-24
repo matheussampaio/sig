@@ -41,7 +41,7 @@ class LocalizationTest(unittest.TestCase):
         for self.dados in self.inserts:
             self.cur.execute(self.dados)
             self.assertEqual(self.cur.statusmessage, "INSERT 0 1")
-	
+    
     def testDInsertTableFalhos(self):
         for self.dadosFalhos in self.falhos:
             try:

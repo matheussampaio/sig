@@ -7,26 +7,26 @@ class RotaTest(unittest.TestCase):
 
     def setUp(self):
 
-      	self.table = open(os.path.abspath('../') + '/sql/createsTable/Rota.sql', 'r')
-      	self.constraints = open(os.path.abspath('../') + '/sql/createsTable/Rota_const.sql', 'r')
-      	self.insert = open(os.path.abspath('../') + '/sql/inserts/Rota_inserts.sql', 'r')
-      	self.falho = open(os.path.abspath('../') + '/sql/inserts/Rota_inserts_falhos.sql', 'r')
-      	
-      	self.Rota = self.table.read()
-      	self.cons = self.constraints.readlines()
-      	self.inserts = self.insert.readlines()
-      	self.falhos = self.falho.readlines()
-      	
-      	self.table.close()
-      	self.constraints.close()
-      	self.insert.close()
-      	self.falho.close()
+        self.table = open(os.path.abspath('../') + '/sql/createsTable/Rota.sql', 'r')
+        self.constraints = open(os.path.abspath('../') + '/sql/createsTable/Rota_const.sql', 'r')
+        self.insert = open(os.path.abspath('../') + '/sql/inserts/Rota_inserts.sql', 'r')
+        self.falho = open(os.path.abspath('../') + '/sql/inserts/Rota_inserts_falhos.sql', 'r')
 
-      	conn = psycopg2.connect("dbname=teste user=postgres")
-      	conn.set_isolation_level(0) # set autocommit
-      	self.cur = conn.cursor()
+        self.Rota = self.table.read()
+        self.cons = self.constraints.readlines()
+        self.inserts = self.insert.readlines()
+        self.falhos = self.falho.readlines()
 
-      	self.geometria = "SELECT AddGeometryColumn('','rota','geom','4291','LINESTRING',2);"
+        self.table.close()
+        self.constraints.close()
+        self.insert.close()
+        self.falho.close()
+
+        conn = psycopg2.connect("dbname=teste user=postgres")
+        conn.set_isolation_level(0) # set autocommit
+        self.cur = conn.cursor()
+
+        self.geometria = "SELECT AddGeometryColumn('','rota','geom','4291','LINESTRING',2);"
 
 
     def tearDown(self):
