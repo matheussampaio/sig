@@ -21,4 +21,4 @@ before_script:
 
 script:
   - cd src/tests
-  - python -m unittest RotaTest
+  - nosetests runTests
