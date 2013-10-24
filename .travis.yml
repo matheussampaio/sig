@@ -4,7 +4,8 @@ python:
   - "2.7"
 
 before_script:
-  - psql -c 'create database gonibus_test;' -U postgres
+  - psql -c 'create database teste;' -U postgres
+  - psql -c "create user matheussampaio with unencrypted password 'sampaio';" -U postgres
   - sudo apt-get install python-xmlrunner
   - pip install psycopg2
 
