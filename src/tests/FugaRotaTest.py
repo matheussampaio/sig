@@ -49,6 +49,6 @@ class FugaRotaTest(unittest.TestCase):
             except:
                 self.assertTrue(True)
 
-    def testEDropTable(self):
-        self.cur.execute("DROP TABLE FugaRota CASCADE;")
-        self.assertEqual(self.cur.statusmessage, "DROP TABLE")
+    # def testEDropTable(self):
+    #     self.cur.execute("DROP TABLE FugaRota CASCADE;")
+    #     self.assertEqual(self.cur.statusmessage, "DROP TABLE")

@@ -55,6 +55,6 @@ class RotaTest(unittest.TestCase):
             except:
                 self.assertTrue(True)
 
-    def testEDropTable(self):
-        self.cur.execute("DROP TABLE Rota CASCADE;")
-        self.assertEqual(self.cur.statusmessage, "DROP TABLE")
+    # def testEDropTable(self):
+    #     self.cur.execute("DROP TABLE Rota CASCADE;")
+    #     self.assertEqual(self.cur.statusmessage, "DROP TABLE")
