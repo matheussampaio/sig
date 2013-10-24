@@ -24,7 +24,7 @@ class PontoOnibusTest(unittest.TestCase):
         
         self.geometria = "SELECT AddGeometryColumn('','pontoonibus','geom','4291','POINT',2);"
 
-        conn = psycopg2.connect("hostaddr=127.0.0.1 dbname=teste user=postgres")
+        conn = psycopg2.connect("dbname=teste user=postgres")
         conn.set_isolation_level(0) # set autocommit
         self.cur = conn.cursor()
 
