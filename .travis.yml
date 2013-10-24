@@ -21,5 +21,4 @@ before_script:
 
 script:
   - cd src/tests
-  - nosetests
   - python -m unittest PontoOnibusTest RotaTest PontoOnibusRotaTest OnibusTest HorariosTest LocalizationTest FugaRotaTest FunctionsTest TriggersTest ViewsTest
