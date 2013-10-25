@@ -5,7 +5,7 @@ import unittest
 import sys
 import os
 
-class FunctionsTest(unittest.TestCase):
+class HFunctionsTest(unittest.TestCase):
 
     def setUp(self):
 
@@ -36,14 +36,14 @@ class FunctionsTest(unittest.TestCase):
          self.funcao7.close()
          self.funcao8.close()
         
-         conn = psycopg2.connect("dbname=teste user=postgres")
+         conn = psycopg2.connect("hostaddr=192.168.1.244 dbname=teste user=matheussampaio password=sampaio")
          conn.set_isolation_level(0) # set autocommit
          self.cur = conn.cursor()
 
     def tearDown(self):
         self.cur.close()
 
-    def testACreateFunction(self):
+    def testCreateFunction(self):
          self.cur.execute(self.checaOnibus)
          self.assertEqual(self.cur.statusmessage, "CREATE FUNCTION")
 

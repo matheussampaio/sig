@@ -3,7 +3,7 @@ import unittest
 import sys
 import os
 
-class TriggersTest(unittest.TestCase):
+class ITriggersTest(unittest.TestCase):
 
     def setUp(self):
 
@@ -25,14 +25,14 @@ class TriggersTest(unittest.TestCase):
         self.trigger4.close()
         self.trigger5.close()
         
-        conn = psycopg2.connect("dbname=teste user=postgres")
+        conn = psycopg2.connect("hostaddr=192.168.1.244 dbname=teste user=matheussampaio password=sampaio")
         conn.set_isolation_level(0) # set autocommit
         self.cur = conn.cursor()
 
     def tearDown(self):
         self.cur.close()
 
-    def testACreatTrigger(self):
+    def testBCreatTrigger(self):
         self.cur.execute(self.LocalizationRefreshPO)
         self.assertEqual(self.cur.statusmessage, "CREATE TRIGGER")
 

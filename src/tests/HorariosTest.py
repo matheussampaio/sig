@@ -3,7 +3,7 @@ import unittest
 import sys
 import os
 
-class HorariosTest(unittest.TestCase):
+class EHorariosTest(unittest.TestCase):
 
     def setUp(self):
 
@@ -22,33 +22,29 @@ class HorariosTest(unittest.TestCase):
         self.insert.close()
         self.falho.close()
 
-        conn = psycopg2.connect("dbname=teste user=postgres")
+        conn = psycopg2.connect("hostaddr=192.168.1.244 dbname=teste user=matheussampaio password=sampaio")
         conn.set_isolation_level(0) # set autocommit
         self.cur = conn.cursor()
 
     def tearDown(self):
         self.cur.close()
 
-    def testACreateTable(self):
+    def testBCreateTable(self):
         self.cur.execute(self.Horario)
         self.assertEqual(self.cur.statusmessage, "CREATE TABLE")
     
-    def testBConstraints(self):
+    def testCConstraints(self):
         self.cur.execute(self.cons)
         self.assertEqual(self.cur.statusmessage, "ALTER TABLE")
         
-    def testCInsertTable(self):
+    def testDInsertTable(self):
         for self.dados in self.inserts:
             self.cur.execute(self.dados)
             self.assertEqual(self.cur.statusmessage, "INSERT 0 1")
-    
-    def testDInsertTableFalhos(self):
+	
+    def testEInsertTableFalhos(self):
         for self.dadosFalhos in self.falhos:
             try:
                 self.cur.execute(self.dadosFalhos)
             except:
                 self.assertTrue(True)
-
-    # def testEDropTable(self):
-    #     self.cur.execute("DROP TABLE Horario CASCADE;")
-    #     self.assertEqual(self.cur.statusmessage, "DROP TABLE")

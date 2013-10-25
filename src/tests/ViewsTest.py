@@ -3,7 +3,7 @@ import unittest
 import sys
 import os
 
-class ViewsTest(unittest.TestCase):
+class JViewsTest(unittest.TestCase):
 
     def setUp(self):
 
@@ -11,7 +11,7 @@ class ViewsTest(unittest.TestCase):
         self.views = self.view.readlines()
         self.view.close()
                 
-        conn = psycopg2.connect("dbname=teste user=postgres")
+        conn = psycopg2.connect("hostaddr=192.168.1.244 dbname=teste user=matheussampaio password=sampaio")
         conn.set_isolation_level(0) # set autocommit
         self.cur = conn.cursor()
 

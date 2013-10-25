@@ -3,7 +3,7 @@ import unittest
 import sys
 import os
 
-class PontoOnibusRotaTest(unittest.TestCase):
+class CPontoOnibusRotaTest(unittest.TestCase):
 
     def setUp(self):
 
@@ -22,7 +22,7 @@ class PontoOnibusRotaTest(unittest.TestCase):
         self.insert.close()
         self.falho.close()
 
-        conn = psycopg2.connect("dbname=teste user=postgres")
+        conn = psycopg2.connect("hostaddr=192.168.1.244 dbname=teste user=matheussampaio password=sampaio")
         conn.set_isolation_level(0) # set autocommit
         self.cur = conn.cursor()
 
@@ -30,27 +30,23 @@ class PontoOnibusRotaTest(unittest.TestCase):
     def tearDown(self):
         self.cur.close()
 
-    def testACreateTable(self):
+    def testBCreateTable(self):
         self.cur.execute(self.PontoOnibusRota)
         self.assertEqual(self.cur.statusmessage, "CREATE TABLE")
     
-    def testBConstraints(self):
+    def testCConstraints(self):
         for self.restricoes in self.cons:
             self.cur.execute(self.restricoes)
             self.assertEqual(self.cur.statusmessage, "ALTER TABLE")
         
-    def testCInsertTable(self):
+    def testDInsertTable(self):
         for self.dados in self.inserts:
             self.cur.execute(self.dados)
             self.assertEqual(self.cur.statusmessage, "INSERT 0 1")
 
-    def testDInsertTableFalhos(self):
+    def testEInsertTableFalhos(self):
         for self.dadosFalhos in self.falhos:
             try:
                 self.cur.execute(self.dadosFalhos)
             except:
                 self.assertTrue(True)
-
-    # def testEDropTable(self):
-    #     self.cur.execute("DROP TABLE PontoOnibus_Rota CASCADE;")
-    #     self.assertEqual(self.cur.statusmessage, "DROP TABLE")
