@@ -22,7 +22,7 @@ before_script:
 
 script:
   - cd src/tests
-  - python -v runTests.py
+  - python -m unittest -v runTests
 
 notifications:
   email:
